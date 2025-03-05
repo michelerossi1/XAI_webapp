@@ -1,0 +1,27 @@
+# Ignore Python virtual environment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore CSV user data
+data/
+
+# Ignore Spyder project settings
+.spyderproject
+.spyproject
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore Flask instance folder (optional)
+instance/
+
+# Ignore log files
+*.log
