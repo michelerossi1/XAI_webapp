@@ -1,0 +1,10 @@
+Sample ID,Technique,Audio 1 Rating,Audio 2 Rating,Irrelevant Rating
+sample_6,LIME,3,3,3
+sample_6,SHAP,3,3,3
+sample_6,GradCAM,3,3,3
+sample_8,LIME,1,5,3
+sample_8,SHAP,3,3,3
+sample_8,GradCAM,3,3,3
+sample_20,LIME,5,1,5
+sample_20,SHAP,3,1,1
+sample_20,GradCAM,5,1,1

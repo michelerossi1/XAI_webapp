@@ -1,0 +1,25 @@
+Sample ID,Technique,Audio 1 Rating,Audio 2 Rating,Irrelevant Rating
+sample_2,LIME,3,3,3
+sample_2,SHAP,3,3,3
+sample_2,GradCAM,3,3,3
+sample_19,LIME,3,3,3
+sample_19,SHAP,3,3,3
+sample_19,GradCAM,3,3,3
+sample_11,LIME,3,3,3
+sample_11,SHAP,3,3,3
+sample_11,GradCAM,3,3,3
+sample_16,LIME,3,3,3
+sample_16,SHAP,3,3,3
+sample_16,GradCAM,3,3,3
+sample_6,LIME,3,3,3
+sample_6,SHAP,3,3,3
+sample_6,GradCAM,3,3,3
+sample_14,LIME,3,3,3
+sample_14,SHAP,3,3,3
+sample_14,GradCAM,3,3,3
+sample_20,LIME,3,3,3
+sample_20,SHAP,3,3,3
+sample_20,GradCAM,3,3,3
+sample_8,LIME,3,3,3
+sample_8,SHAP,3,3,3
+sample_8,GradCAM,3,3,3

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Explanations</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .full-song {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .technique-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+
+        .spectrogram {
+            width: 250px;
+            margin-right: 20px;
+        }
+
+        .audio-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .audio-controls audio {
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .rating label {
+            margin-right: 10px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Rate the Explanations (Sample {{ sample_id }})</h1>
+
+        <div class="full-song">
+            <h2>Full Song</h2>
+            <button onclick="playFullSong()">▶ Play Full Song</button>
+            <audio id="full_song_audio">
+                <source src="{{ sample['full_song'] }}" type="audio/wav">
+            </audio>
+        </div>
+
+        <h2>Explanation Techniques</h2>
+
+        {% for technique, content in sample["parts"].items() %}
+        <div class="technique-section">
+            <!-- Spectrogram on the Left -->
+            <img class="spectrogram" src="{{ content['spectrogram'] }}" alt="Spectrogram">
+
+            <!-- Audio Files & Ratings on the Right -->
+            <div class="audio-controls">
+                <h3>{{ technique }}</h3>
+
+                <div class="rating">
+                    <label>Relevant Region 1':</label>
+                    <audio controls>
+                        <source src="{{ content['audio_1'] }}" type="audio/wav">
+                    </audio>
+                    <input type="range" id="{{ technique }}_audio_1" min="1" max="5" value="3">
+                </div>
+
+                <div class="rating">
+                    <label>Relevant Region 2':</label>
+                    <audio controls>
+                        <source src="{{ content['audio_2'] }}" type="audio/wav">
+                    </audio>
+                    <input type="range" id="{{ technique }}_audio_2" min="1" max="5" value="3">
+                </div>
+
+                <div class="rating">
+                    <label>Irrelevant Region:</label>
+                    <audio controls>
+                        <source src="{{ content['audio_irrelevant'] }}" type="audio/wav">
+                    </audio>
+                    <input type="range" id="{{ technique }}_irrelevant" min="1" max="5" value="3">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <button onclick="submitRatings()">Submit Ratings</button>
+    </div>
+
+    <script>
+        function playFullSong() {
+            document.getElementById('full_song_audio').play();
+        }
+
+        function submitRatings() {
+            const ratings = {};
+            ["LIME", "SHAP", "GradCAM"].forEach(technique => {
+                ratings[technique] = {
+                    audio_1: document.getElementById(technique + "_audio_1").value,
+                    audio_2: document.getElementById(technique + "_audio_2").value,
+                    irrelevant: document.getElementById(technique + "_irrelevant").value
+                };
+            });
+
+            fetch('/submit_ratings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sample_id: "{{ sample_id }}", ratings: ratings })
+            }).then(response => response.json()).then(data => {
+                alert(data.message);
+                if (data.completed) {
+                    window.location.href = "/thank_you";
+                } else {
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
