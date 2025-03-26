@@ -34,6 +34,12 @@ samples = {
     for i in range(1, 21)  # Samples 1 to 20
 }
 
+@app.route('/instructions')
+def instructions():
+    """Display the instructions before the test starts."""
+    return render_template("instructions.html")
+
+
 @app.route('/', methods=['GET', 'POST'])
 def start():
     """Ask for user information before starting the test."""
@@ -54,7 +60,7 @@ def start():
                 writer = csv.writer(file)
                 writer.writerow(["Sample ID", "Technique", "Audio 1 Rating", "Audio 2 Rating", "Irrelevant Rating"])
 
-        return redirect(url_for('index'))  # Start the test
+        return redirect(url_for('instructions')) 
 
     return render_template("start.html")
 

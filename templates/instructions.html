@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Test Instructions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p, li {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        ul {
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome, {{ session['name'] }}!</h1>
+        
+        <p>You will listen to 20 audio samples. For each sample, explanations from three explainability (XAI) techniques will be provided.</p>
+
+        <p>Each technique identifies two relevant regions and one irrelevant region in the spectrogram. These regions are converted into audio.</p>
+
+        <p>Your task is to listen to the audio and rate how much you agree with the technique’s explanation:</p>
+        <ul>
+            <li>1 – Strongly disagree</li>
+            <li>5 – Strongly agree</li>
+        </ul>
+
+        <p>Please use headphones and ensure a quiet environment for better accuracy.</p>
+        
+        <p>Click below to start the test.</p>
+
+        <form action="{{ url_for('index') }}">
+            <button type="submit">Start the Test</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+
