@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start Experiment</title>
-    <style>
+        <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             text-align: center;
             padding: 50px;
         }
-
+    
         .container {
             background: white;
             padding: 20px;
@@ -20,38 +20,47 @@
             display: inline-block;
             text-align: left;
         }
-
+    
         h1 {
             color: #333;
         }
-
+    
         form {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-
+    
         label {
             font-weight: bold;
         }
-
+    
+        /* Ensure all input fields, select, and button have the same size */
         input, select, button {
-            padding: 8px;
+            padding: 10px; /* Uniform padding */
             font-size: 16px;
             border-radius: 5px;
             border: 1px solid #ccc;
             width: 100%;
+            box-sizing: border-box; /* Ensures padding does not change width */
+            height: 40px; /* Fixed height for consistency */
         }
-
+    
         button {
             background-color: #007BFF;
             color: white;
             border: none;
             cursor: pointer;
         }
-
+    
         button:hover {
             background-color: #0056b3;
+        }
+    
+        .privacy {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -78,7 +87,14 @@
 
             <button type="submit">Start Experiment</button>
         </form>
+
+        <div class="privacy">
+            <p><strong>Privacy Notice:</strong>Your data will be used exclusively for research purposes and will not be shared with third parties.</p> 
+            <p>All collected information is anonymized and handled in compliance with the General Data Protection Regulation (GDPR).</p> 
+            <p>You can request data deletion at any time.</p>
+        </div>
     </div>
 
 </body>
 </html>
+
