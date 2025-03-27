@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session
 import csv
 import random
@@ -39,13 +40,11 @@ def instructions():
     """Display the instructions before the test starts."""
     return render_template("instructions.html")
 
-
 @app.route('/', methods=['GET', 'POST'])
 def start():
     """Ask for user information before starting the test."""
     if request.method == 'POST':
-        session["name"] = request.form["name"].strip()
-        session["surname"] = request.form["surname"].strip()
+        session["nickname"] = request.form["nickname"].strip()
         session["age"] = request.form["age"].strip()
         session["gender"] = request.form["gender"]
         session["samples_completed"] = 0  
@@ -54,7 +53,7 @@ def start():
         # Ensure data directory exists
         os.makedirs("data", exist_ok=True)
 
-        filename = f"data/{session['name']}_{session['surname']}.csv"
+        filename = f"data/{session['nickname']}_{session['age']}_{session['gender']}.csv"
         if not os.path.exists(filename):
             with open(filename, "w", newline="") as file:
                 writer = csv.writer(file)
@@ -67,7 +66,7 @@ def start():
 @app.route('/test')
 def index():
     """Display the next sample in the random order."""
-    if "name" not in session or "surname" not in session:
+    if "nickname" not in session:
         return redirect(url_for("start"))  
 
     if session["samples_completed"] >= 20:
@@ -79,11 +78,11 @@ def index():
 @app.route('/submit_ratings', methods=['POST'])
 def submit_ratings():
     """Save user ratings and move to the next sample."""
-    if "name" not in session or "surname" not in session:
+    if "nickname" not in session:
         return redirect(url_for("start"))  
 
     data = request.json
-    filename = f"data/{session['name']}_{session['surname']}.csv"
+    filename = f"data/{session['nickname']}_{session['age']}_{session['gender']}.csv"
 
     with open(filename, "a", newline="") as file:
         writer = csv.writer(file)
@@ -105,5 +104,4 @@ def thank_you():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
 
